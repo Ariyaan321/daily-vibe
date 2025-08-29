@@ -34,3 +34,4 @@ audioFiles
 
 ### VS Code ###
 .vscode/
+*.json
