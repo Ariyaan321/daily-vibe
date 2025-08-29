@@ -19,6 +19,8 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        String newId = String.valueOf(users.size() + 1);
+        user.setId(newId);
         users.put(user.getId(), user);
         return user;
     }
