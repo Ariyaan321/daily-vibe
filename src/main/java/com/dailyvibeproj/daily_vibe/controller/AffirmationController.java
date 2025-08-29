@@ -27,7 +27,7 @@ public class AffirmationController {
 
     @GetMapping("/{id}")
     public String getAffirmation(@PathVariable String id) {
-        User user = userService.getUser(id); // fetch from HashMap
+        User user = userService.getUserById(id); // fetch from HashMap
         if (user == null) {
             return "User with id " + id + " not found!";
         }
@@ -45,7 +45,7 @@ public class AffirmationController {
     @GetMapping(value = "/tts/{id}", produces = "audio/wav")
     public ResponseEntity<byte[]> getAffirmationTTS(@PathVariable String id, HttpServletRequest request) {
         System.out.println("Incoming request======================: " + request.getRequestURI());
-        User user = userService.getUser(id); // fetch from HashMap
+        User user = userService.getUserById(id); // fetch from HashMap
         if (user == null) {
             return ResponseEntity.badRequest()
                     .body(("User with id " + id + " not found!").getBytes());

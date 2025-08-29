@@ -1,11 +1,13 @@
 package com.dailyvibeproj.daily_vibe.model;
 
-// import java.util.ArrayList;
-// import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "users")
 public class User {
 
     // data identification
+    @Id
     private String id;
     private String name;
     private String language;
@@ -19,23 +21,7 @@ public class User {
     private String goals;
     // private List<String> interests;
     private String tone_preference;
-    private String coach;
-
-    // dummy data constructor
-    public User() {
-        this.id = "1";
-        this.name = "JohnDoe";
-        this.language = "en";
-        // this.age = "21";
-        this.gender = "M";
-        // this.location = "India";
-        // this.time_zone = "Asia/Kolkata";
-        // this.mood = new ArrayList<>(List.of("optimistic", "ambitious"));
-        this.goals = "career growth";
-        // this.interests = new ArrayList<>(List.of("tech", "spirituality"));
-        this.tone_preference = "uplifting, motivational";
-        this.coach = "Kore";
-    }
+    private String coach;    
 
     // getters and setters
     public String getId() {
