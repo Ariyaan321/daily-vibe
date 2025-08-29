@@ -16,6 +16,7 @@ public class User {
     private String goals;
     // private List<String> interests;
     private String tone_preference;
+    private String coach;
 
     // dummy data constructor
     public User() {
@@ -30,6 +31,7 @@ public class User {
         this.goals = "career growth";
         // this.interests = new ArrayList<>(List.of("tech", "spirituality"));
         this.tone_preference = "uplifting, motivational";
+        this.coach = "Kore";
     }
 
     // getters and setters
@@ -119,5 +121,13 @@ public class User {
 
     public void setTone_preference(String tone_preference) {
         this.tone_preference = tone_preference;
+    }
+
+    public String getCoach() {
+        return coach;
+    }
+
+    public void setCoach(String coach) {
+        this.coach = coach;
     }
 }
