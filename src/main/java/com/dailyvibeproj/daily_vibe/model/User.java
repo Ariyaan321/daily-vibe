@@ -1,8 +1,5 @@
 package com.dailyvibeproj.daily_vibe.model;
 
-// import java.util.ArrayList;
-// import java.util.List;
-
 public class User {
 
     // data identification
