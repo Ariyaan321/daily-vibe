@@ -45,7 +45,8 @@ public class AffirmationController {
     @GetMapping(value = "/tts/{name}", produces = "audio/wav")
     public ResponseEntity<byte[]> getAffirmationTTS(@PathVariable String name, HttpServletRequest request) {
         System.out.println("Incoming request======================: " + request.getRequestURI());
-        User user = userService.getUserByName(name);; // fetch from HashMap
+        User user = userService.getUserByName(name);
+        ; // fetch from HashMap
         if (user == null) {
             return ResponseEntity.badRequest()
                     .body(("User with id " + name + " not found!").getBytes());
@@ -64,7 +65,7 @@ public class AffirmationController {
                     .header("Cache-Control", "no-cache")
                     .header("Accept-Ranges", "bytes")
                     .body(audio);
-        } catch (IOException e) {
+        } catch (Exception e) {
             // If an error occurs during TTS generation, log it and send a server error
             // response.
             System.err.println("Error generating TTS audio: " + e.getMessage());

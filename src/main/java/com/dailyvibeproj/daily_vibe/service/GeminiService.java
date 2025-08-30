@@ -57,9 +57,9 @@ public class GeminiService {
                                                         "Goals: %s\n" +
                                                         "Interests: %s\n" +
                                                         "Make it sound %s.\n",
-                                        user.getName(), user.getAge(), user.getLanguage(), user.getMood(),
+                                        user.getName(), user.getLanguage(),
                                         user.getGoals(),
-                                        user.getInterests(),
+                                        // user.getInterests(),
                                         user.getTone_preference());
 
                         // return "you reached geminiservice";
