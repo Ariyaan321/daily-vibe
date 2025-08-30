@@ -46,6 +46,10 @@
 			<artifactId>google-genai</artifactId>
 			<version>1.14.0</version>
 		</dependency>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4edc1f06d0d43ca52b6948a432623ddf16e20497
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
