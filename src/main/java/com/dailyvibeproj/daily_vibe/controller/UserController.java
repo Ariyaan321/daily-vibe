@@ -1,6 +1,7 @@
 package com.dailyvibeproj.daily_vibe.controller;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,14 +31,14 @@ public class UserController {
 
     // GET → fetch all users
     @GetMapping
-    public Map<String, User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     // GET by id → fetch specific user
     @GetMapping("/{id}")
     public User getUser(@PathVariable String id) {
-        return userService.getUser(id);
+        return userService.getUserById(id);
     }
 
 }
