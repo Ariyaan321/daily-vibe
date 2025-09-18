@@ -13,12 +13,11 @@ import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class FcmService {
 
-    // ... (keep the sendNotification to a single token method if you might need it later)
+    // ... (keep the sendNotification to a single token method if you might need it
+    // later)
 
     /**
      * Sends a notification to a specific topic.
@@ -30,13 +29,15 @@ public class FcmService {
      * @throws FirebaseMessagingException if sending the message fails.
      */
 
-     public void sendMessageToToken(NotificationRequest request)
+    public void sendMessageToToken(NotificationRequest request)
             throws InterruptedException, ExecutionException {
         Message message = getPreconfiguredMessageToToken(request);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonOutput = gson.toJson(message);
         String response = sendAndGetResponse(message);
-        // logger.info("Sent message to token. Device token: " + request.getToken() + ", " + response+ " msg "+jsonOutput);
+        System.out.println(
+                "->>>>>>>Sent message to token. Device token: " + request.getToken() + ", " + response + " msg "
+                        + jsonOutput);
     }
 
     private String sendAndGetResponse(Message message) throws InterruptedException, ExecutionException {
@@ -48,10 +49,14 @@ public class FcmService {
                 .setTtl(Duration.ofMinutes(2).toMillis()).setCollapseKey(topic)
                 .setPriority(AndroidConfig.Priority.HIGH)
                 .setNotification(AndroidNotification.builder()
-                        .setTag(topic).build()).build();
+                        .setTag(topic).build())
+                .build();
     }
-    
+
     private Message getPreconfiguredMessageToToken(NotificationRequest request) {
+
+        // System.out.print("->>>>>>Sent message to token. Device token: " +
+        // request.getToken());
         return getPreconfiguredMessageBuilder(request).setToken(request.getToken())
                 .build();
     }
@@ -60,13 +65,12 @@ public class FcmService {
         AndroidConfig androidConfig = getAndroidConfig(request.getTopic());
         // ApnsConfig apnsConfig = getApnsConfig(request.getTopic());
         Notification notification = Notification.builder()
-                                        .setTitle(request.getTitle())
-                                        .setBody(request.getBody())
-                                        .build();
+                .setTitle(request.getTitle())
+                .setBody(request.getBody())
+                .build();
         return Message.builder()
                 .setAndroidConfig(androidConfig).setNotification(notification);
     }
-    
 
     public String sendNotificationToTopic(String topic, String title, String body) throws FirebaseMessagingException {
         Notification notification = Notification.builder()

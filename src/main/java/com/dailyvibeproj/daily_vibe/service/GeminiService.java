@@ -8,6 +8,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.List;
 
 import com.google.genai.Client;
@@ -99,6 +103,15 @@ public class GeminiService {
                 byte[] wavFileBytes = addWavHeader(rawPcmAudio);
 
                 System.out.println("WAV header added. Returning complete audio file to controller.");
+
+                // New / modified part:
+                Path outputPath = Paths.get("src/main/resources/audioFiles/affirmation.wav");
+                // Ensure the directory exists
+                Files.createDirectories(outputPath.getParent());
+                // Write file
+                Files.write(outputPath, wavFileBytes);
+                System.out.println("Audio file saved at: " + outputPath.toAbsolutePath());
+
                 return wavFileBytes;
         }
 

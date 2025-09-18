@@ -1,4 +1,5 @@
 package com.dailyvibeproj.daily_vibe.service;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -13,31 +14,32 @@ import java.io.InputStream;
 public class FirebaseInitializationService {
 
     @Value("${firebase.config.path}")
-    private String firebaseApiKey;
+    private String firebaseConfigPath;
 
+    public FirebaseInitializationService() {
+        System.out.println(">>> FirebaseInitializationService constructor called");
+    }
 
-    @PostConstruct // This ensures this method is run after the bean is initialized
+    @PostConstruct
     public void initialize() {
-        System.out.println(firebaseApiKey);
-        try {
-            // Load the service account key file from the classpath
-            
-            InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream(firebaseApiKey);
+        System.out.println(">>> Firebase config path: " + firebaseConfigPath);
+        try (InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream(firebaseConfigPath)) {
             if (serviceAccount == null) {
-                throw new RuntimeException("Firebase service account key file not found in classpath.");
+                throw new RuntimeException(
+                        "Firebase service account key file not found in classpath: " + firebaseConfigPath);
             }
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
-            // Initialize Firebase if not already initialized
+
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
                 System.out.println("Firebase application has been initialized");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            
+            e.printStackTrace();
+            throw new RuntimeException("Firebase initialization failed: " + e.getMessage(), e);
         }
     }
 }
